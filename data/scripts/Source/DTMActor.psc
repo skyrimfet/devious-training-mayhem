@@ -473,7 +473,7 @@ function updateBreasts(int Slot, int LevelChastityBra = 0)
 			
 			SLIF_Main.hideNode(npcs_ref[Slot], "DTT", "NPC L Breast", breastSizeL, "DTT")
 			SLIF_Main.hideNode(npcs_ref[Slot], "DTT", "NPC R Breast", breastSizeR, "DTT")
-
+			debug.messagebox("new calculated breasts size"+breastSizeL)
 		else
 			SLIF_Main.showNode(npcs_ref[Slot], "Devious Training Mayhem", "NPC L Breast")
 			SLIF_Main.showNode(npcs_ref[Slot], "Devious Training Mayhem", "NPC R Breast")
