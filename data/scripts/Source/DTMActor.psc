@@ -467,7 +467,7 @@ function updateBreasts(int Slot, int LevelChastityBra = 0)
 			;4 = 4 - 4 * (0.16 * (0.9) ) ~ 4 - 0.5
 			;4 = 4 - 4 * (1 * (0.9) ) ~ 4 - 3.6
 			;
-			breastSizeL = breastSizeL - breastSizeL * ( (LevelChastityBra/6) as float * (1- DTConfig.chastityBraScaleBreasts ) as float ) as float
+			breastSizeL = breastSizeL - ( breastSizeL * ( (LevelChastityBra/6) as float * (1- DTConfig.chastityBraScaleBreasts ) as float ) as float )
 			breastSizeR = breastSizeR - breastSizeR * ( (LevelChastityBra/6) as float * (1- DTConfig.chastityBraScaleBreasts ) as float ) as float
 			
 			
