@@ -208,7 +208,7 @@ Event OnOptionSliderAccept(Int Menu, Float Val)
 		updateActors()
 	endif		
 	if Menu == chastityBraScaleBreasts
-		DTConfig.chastityBraScaleBreasts = Val as Int
+		DTConfig.chastityBraScaleBreasts = Val as float
 		SetSliderOptionValue(Menu,Val,"{1}")	
 		updateActors()
 	endif			
@@ -254,7 +254,7 @@ Event OnOptionSliderOpen(Int Menu)
 	sliderSetupOpenInt(Menu,gagScaleMouth,DTConfig.gagScaleMouth,0,150,1);
 
 	
-	sliderSetupOpenFloat(Menu,chastityBraScaleBreasts,DTConfig.chastityBraScaleBreasts,0,2,0.1);
+	sliderSetupOpenFloat(Menu,chastityBraScaleBreasts,DTConfig.chastityBraScaleBreasts,0.1,1,0.1);
 	
 endEvent
 

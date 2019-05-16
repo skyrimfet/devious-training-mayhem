@@ -7,7 +7,7 @@ DTMActor Property DTActor Auto
 
 ;hardcoded version info
 Float function getVersion()
-	return 1.7
+	return 1.8
 endFunction
 
 ;visual version info

@@ -21,6 +21,7 @@ Int Property blindfoldScaleEyes Auto
 Int Property gagScaleMouth Auto
 
 Float Property chastityBraScaleBreasts Auto
+Bool Property compressedBreasts Auto
 
 Bool Property modSlif Auto
 

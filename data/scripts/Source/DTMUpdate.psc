@@ -52,6 +52,10 @@ Function Update(Float version)
 	if DTConfig.lastVersion < 1.7
 		DTTools.log("Run module updateTo17",2, true)
 		updateTo17()
+	endIf
+	if DTConfig.lastVersion < 1.8
+		DTTools.log("Run module updateTo18",2, true)
+		updateTo18()
 	endIf	
 	DTTools.log("Update DTM - version:"+version+" FINISH",2, true)
 	
@@ -62,6 +66,9 @@ Function Update(Float version)
 EndFunction
 
 
+function updateTo18()
+	DTConfig.compressedBreasts = true
+endFunction
 function updateTo17()
 	DTConfig.allowItemoverlays = false
 endFunction

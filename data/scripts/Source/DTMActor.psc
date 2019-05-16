@@ -84,6 +84,8 @@ endFunction
 
 function processActor(int Slot, String item = "", float value = -1.0, float value2 = -1.0)
 
+	
+
 	DTTools.log2("ProcessActor Slot:",Slot)
 	DTTools.log2("ProcessActor Item:",item)
 
@@ -209,7 +211,12 @@ function resetAllChanges(int Slot)
 			SLIF_Main.unregisterNode(npcs_ref[Slot], "NPC Spine2 [Spn2]", "Devious Training Mayhem")
 			SLIF_Main.unregisterNode(npcs_ref[Slot], "NPC Neck [Neck]", "Devious Training Mayhem")
 			SLIF_Main.unregisterNode(npcs_ref[Slot], "NPC Head [Head]", "Devious Training Mayhem")
+
+			SLIF_Main.showNode(npcs_ref[Slot], "Devious Training Mayhem", "NPC L Breast")
+			SLIF_Main.showNode(npcs_ref[Slot], "Devious Training Mayhem", "NPC R Breast")
+
 			SLIF_Main.unregisterNode(npcs_ref[Slot], "slif_breast", "Devious Training Mayhem")
+			
 			
 
 		endif
@@ -417,13 +424,63 @@ endFunction
 
 function updateBreasts(int Slot, int LevelChastityBra = 0)
 	
-
+			
+			;float breastSizeR = NiOverride.GetNodeTransformScale(npcs_ref[Slot],false,true,"NPC R Breast")
+		;	debug.messagebox(breastSizeL)
 	; 6 = conf	
 	; c = ?
-	float value =  ( LevelChastityBra * DTConfig.chastityBraScaleBreasts ) / 6
+	;float value =  ( LevelChastityBra * DTConfig.chastityBraScaleBreasts ) / 6
 	
-	if DTConfig.modSlif == true		
-		SLIF_Main.inflate(npcs_ref[Slot], "Devious Training Mayhem", "slif_breast", value, -1, -1, "Devious Trainin Mayhem")
+	
+	if DTConfig.modSlif == true && DTConfig.compressedBreasts
+		;/	if LevelChastityBra == 4
+			SLIF_Main.hideNode(npcs_ref[Slot], "DTT", "NPC L Breast", 1, "DTT")
+			SLIF_Main.hideNode(npcs_ref[Slot], "DTT", "NPC R Breast", 1, "DTT")
+		elseif LevelChastityBra ==5
+			SLIF_Main.hideNode(npcs_ref[Slot], "DTT", "NPC L Breast", 1, "DTT")
+			SLIF_Main.hideNode(npcs_ref[Slot], "DTT", "NPC R Breast", 1, "DTT")
+		elseif LevelChastityBra ==6
+			SLIF_Main.hideNode(npcs_ref[Slot], "DTT", "NPC L Breast", 1, "DTT")
+			SLIF_Main.hideNode(npcs_ref[Slot], "DTT", "NPC R Breast", 1, "DTT")
+		else
+		endif/;
+		
+		if LevelChastityBra >= 1 && DTConfig.chastityBraScaleBreasts < 1
+			SLIF_Main.showNode(npcs_ref[Slot], "Devious Training Mayhem", "NPC L Breast")
+			SLIF_Main.showNode(npcs_ref[Slot], "Devious Training Mayhem", "NPC R Breast")
+			float breastSizeL = SLIF_Main.getValue(npcs_ref[Slot],"All Mods","NPC L Breast")
+			float breastSizeR = SLIF_Main.getValue(npcs_ref[Slot],"All Mods","NPC R Breast")
+			
+			;1 = scale
+			;curent = ?
+			
+			;basic model
+			;breastSizeL = breastSizeL - breastSizeL*(LevelChastityBra/6)
+			;adv model
+			
+			
+			
+			;4 = 4 - 4 (   )
+			
+			;breastSizeL = breastSizeL - breastSizeL*(LevelChastityBra/6 )
+			;4 = 4 - 4 * (0.16 * (1 - 0.1) )
+			;4 = 4 - 4 * (0.16 * (0.9) ) ~ 4 - 0.5
+			;4 = 4 - 4 * (1 * (0.9) ) ~ 4 - 3.6
+			;
+			breastSizeL = breastSizeL - breastSizeL * ( (LevelChastityBra/6) as float * (1- DTConfig.chastityBraScaleBreasts ) as float ) as float
+			breastSizeR = breastSizeR - breastSizeR * ( (LevelChastityBra/6) as float * (1- DTConfig.chastityBraScaleBreasts ) as float ) as float
+			
+			
+			SLIF_Main.hideNode(npcs_ref[Slot], "DTT", "NPC L Breast", breastSizeL, "DTT")
+			SLIF_Main.hideNode(npcs_ref[Slot], "DTT", "NPC R Breast", breastSizeR, "DTT")
+
+		else
+			SLIF_Main.showNode(npcs_ref[Slot], "Devious Training Mayhem", "NPC L Breast")
+			SLIF_Main.showNode(npcs_ref[Slot], "Devious Training Mayhem", "NPC R Breast")
+		endIf
+		
+		
+		;SLIF_Main.inflate(npcs_ref[Slot], "Devious Training Mayhem", "slif_breast", value, -1, -1, "Devious Trainin Mayhem")
 	endif
 endFunction
 
