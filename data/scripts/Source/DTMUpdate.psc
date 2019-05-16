@@ -67,6 +67,7 @@ EndFunction
 
 
 function updateTo18()
+	DTConfig.chastityBraScaleBreasts = 0.5
 	DTConfig.compressedBreasts = true
 endFunction
 function updateTo17()

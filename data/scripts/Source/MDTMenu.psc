@@ -104,8 +104,8 @@ Event OnPageReset(string page)
 		AddEmptyOption()   
 		
 		AddHeaderOption("Breasts ")
-		
-		chastityBraScaleBreasts = AddSliderOption("Chastity Bra scale",DTConfig.chastityBraScaleBreasts,"{1}")
+		compressedBreasts  = AddToggleOption("Enable breasts compression",DTConfig.compressedBreasts)
+		chastityBraScaleBreasts = AddSliderOption("Chastity Bra compression",DTConfig.chastityBraScaleBreasts,"{1}")
 		
 		SetCursorPosition(1)	
 		
@@ -177,6 +177,16 @@ Event OnOptionSelect(Int Menu)
 			DTConfig.allowItemoverlays = true							
 		endIf
 		SetToggleOptionValue(Menu,  DTConfig.allowItemoverlays)		
+		return
+	endIf		
+
+	if Menu == compressedBreasts
+		if  DTConfig.compressedBreasts == true
+			DTConfig.compressedBreasts = false
+		else			
+			DTConfig.compressedBreasts = true							
+		endIf
+		SetToggleOptionValue(Menu,  DTConfig.compressedBreasts)		
 		return
 	endIf	
 	
@@ -293,6 +303,7 @@ int supportSteps
 int enableBodyWeight
 int bodyScaleFatThigh
 int enableWhipsMarks
+int compressedBreasts
 
 int vaginalPlugEffect
 int analPlugEffect

@@ -83,7 +83,8 @@ function onLocationChanged()
 int i = 0
 	while i < DTActor.getArrayCount()
 		if DTActor.npcs_ref[i]!=None
-		
+			;i had no idea:()
+			DTActor.updateBreasts(i, DTActor.npcs_ref[i].GetFactionRank(DTConfig.DT_Chastitybra))
 			if DTActor.npcs_ref[i].hasSpell(DTConfig.EffectSpell)
 				DTActor.npcs_ref[i].removeSpell(DTConfig.EffectSpell)				
 			endif			
