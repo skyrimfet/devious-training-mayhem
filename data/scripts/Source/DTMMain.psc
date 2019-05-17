@@ -88,7 +88,7 @@ int i = 0
 			if DTActor.npcs_ref[i].hasSpell(DTConfig.EffectSpell)
 				DTActor.npcs_ref[i].removeSpell(DTConfig.EffectSpell)				
 			endif			
-			DTActor.npcs_ref[i].addSpell(DTConfig.EffectSpell)
+			DTActor.npcs_ref[i].addSpell(DTConfig.EffectSpell,false)
 			
 		endif
 		i+=1

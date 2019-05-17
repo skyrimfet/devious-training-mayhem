@@ -54,7 +54,7 @@ function registerActor(Actor akActor, int Slot)
 		
 		
 		processActor(Slot)
-		npcs_ref[Slot].addSpell(DTConfig.EffectSpell)
+		npcs_ref[Slot].addSpell(DTConfig.EffectSpell,false)
 	endIf
 
 	
@@ -95,6 +95,7 @@ function processActor(int Slot, String item = "", float value = -1.0, float valu
 	
 	;general actor process
 	if item == "" && value == -1
+		updateBelly(Slot)
 		updateWaist(Slot, npcs_ref[Slot].GetFactionRank(DTConfig.DT_Corset), npcs_ref[Slot].GetFactionRank(DTConfig.DT_Harness), npcs_ref[Slot].GetFactionRank(DTConfig.DT_Chastitybelt))
 		updateCollar(Slot, npcs_ref[Slot].GetFactionRank(DTConfig.DT_Collar))
 		updateBreasts(Slot, npcs_ref[Slot].GetFactionRank(DTConfig.DT_Chastitybra))
@@ -129,6 +130,7 @@ function processActor(int Slot, String item = "", float value = -1.0, float valu
 	
 		if item=="corset"
 			updateWaist(Slot, value as Int, npcs_ref[Slot].GetFactionRank(DTConfig.DT_Harness) , npcs_ref[Slot].GetFactionRank(DTConfig.DT_Chastitybelt))
+			updateBelly(Slot)
 			addItemOverlays(Slot)
 		endIf
 		
@@ -214,7 +216,7 @@ function resetAllChanges(int Slot)
 
 			SLIF_Main.showNode(npcs_ref[Slot], "Devious Training Mayhem", "NPC L Breast")
 			SLIF_Main.showNode(npcs_ref[Slot], "Devious Training Mayhem", "NPC R Breast")
-
+			SLIF_Main.showNode(npcs_ref[Slot], "Devious Training Mayhem", "slif_belly")
 			SLIF_Main.unregisterNode(npcs_ref[Slot], "slif_breast", "Devious Training Mayhem")
 			
 			
@@ -423,7 +425,6 @@ function updateMouth(int Slot)
 endFunction
 
 function updateBreasts(int Slot, int LevelChastityBra = 0)
-
 	;is there something to do?
 	if DTConfig.modSlif == false
 		return
@@ -431,9 +432,9 @@ function updateBreasts(int Slot, int LevelChastityBra = 0)
 
 	;ok...
 	bool breastNodesAreShowed = false
-	if DTConfig.patchDDDeviousBra == true && npcs_ref[Slot].WornHasKeyword(libs.libs.zad_DeviousBra)==true
-		SLIF_Main.hideNode(npcs_ref[Slot], "DTT", "NPC L Breast", 0.1, "DTT")	;0.1 - almost flat breasts
-		SLIF_Main.hideNode(npcs_ref[Slot], "DTT", "NPC R Breast", 0.1, "DTT")	;0.1 - almost flat breasts
+	if DTConfig.patchDDDeviousBra == true && npcs_ref[Slot].WornHasKeyword(libs.zad_DeviousBra)==true
+		SLIF_Main.hideNode(npcs_ref[Slot], "Devious Training Mayhem", "NPC L Breast", 0.1, "Devious Training Mayhem")	;0.1 - almost flat breasts
+		SLIF_Main.hideNode(npcs_ref[Slot], "Devious Training Mayhem", "NPC R Breast", 0.1, "Devious Training Mayhem")	;0.1 - almost flat breasts
 		breastNodesAreShowed = false
 		return	;no more to do
 	else
@@ -442,10 +443,12 @@ function updateBreasts(int Slot, int LevelChastityBra = 0)
 		SLIF_Main.showNode(npcs_ref[Slot], "Devious Training Mayhem", "NPC R Breast")
 		breastNodesAreShowed = true
 	endif
-
-	if DTConfig.compressedBreasts == true
+	
+	 if DTConfig.compressedBreasts == true
 
 		if LevelChastityBra >= 1 && DTConfig.chastityBraScaleBreasts < 1
+
+			;grab all keys
 
 			if breastNodesAreShowed == false
 				SLIF_Main.showNode(npcs_ref[Slot], "Devious Training Mayhem", "NPC L Breast")
@@ -464,8 +467,8 @@ function updateBreasts(int Slot, int LevelChastityBra = 0)
 			breastSizeL = breastSizeL - ( breastSizeL *  totalFactor ) as float 
 			breastSizeR = breastSizeR - ( breastSizeR *  totalFactor ) as float 
 
-			SLIF_Main.hideNode(npcs_ref[Slot], "DTT", "NPC L Breast", breastSizeL, "DTT")
-			SLIF_Main.hideNode(npcs_ref[Slot], "DTT", "NPC R Breast", breastSizeR, "DTT")
+			SLIF_Main.hideNode(npcs_ref[Slot], "Devious Training Mayhem", "NPC L Breast", breastSizeL, "Devious Training Mayhem")
+			SLIF_Main.hideNode(npcs_ref[Slot], "Devious Training Mayhem", "NPC R Breast", breastSizeR, "Devious Training Mayhem")
 		else
 			SLIF_Main.showNode(npcs_ref[Slot], "Devious Training Mayhem", "NPC L Breast")
 			SLIF_Main.showNode(npcs_ref[Slot], "Devious Training Mayhem", "NPC R Breast")
@@ -508,6 +511,21 @@ function updateCollar(int Slot, int Level = 0)
 		SLIF_Main.inflate(npcs_ref[Slot], "Devious Training Mayhem", "NPC Head [Head]", head, -1, -1, "Devious Training Mayhem")
 	endif
 	
+endFunction
+
+function updateBelly(int Slot)
+	;is there something to do?
+	if DTConfig.modSlif == false
+		return
+	endif
+	if DTConfig.patchDDDeviousCorset==true
+		 if npcs_ref[Slot].WornHasKeyword(libs.zad_DeviousCorset)==true
+			SLIF_Main.hideNode(npcs_ref[Slot], "Devious Training Mayhem", "slif_belly", 0.1, "DTT")	;0.1 - almost flat breasts
+		 else
+			SLIF_Main.showNode(npcs_ref[Slot], "Devious Training Mayhem", "slif_belly")
+		 endif
+	endif
+
 endFunction
 
 function updateWaist(int Slot, int LevelCorset = 0, int LevelHarness,  int LevelChastity = 0)

@@ -18,8 +18,6 @@ Int Property collarScaleNeck Auto
 Bool Property patchDDDeviousBra Auto
 Bool Property patchDDDeviousCorset Auto
 
-
-
 Int Property blindfoldScaleEyes Auto
 Int Property gagScaleMouth Auto
 

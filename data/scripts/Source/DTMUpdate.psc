@@ -67,10 +67,10 @@ EndFunction
 
 
 function updateTo18()
-	DTConfig.chastityBraScaleBreasts = 0.5
-	DTConfig.compressedBreasts = true
 	DTConfig.patchDDDeviousBra = true
 	DTConfig.patchDDDeviousCorset = true
+	DTConfig.chastityBraScaleBreasts = 0.5
+	DTConfig.compressedBreasts = true
 endFunction
 function updateTo17()
 	DTConfig.allowItemoverlays = false
