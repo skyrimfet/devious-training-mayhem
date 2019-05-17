@@ -424,14 +424,33 @@ endFunction
 
 function updateBreasts(int Slot, int LevelChastityBra = 0)
 
-	if DTConfig.modSlif == true && DTConfig.compressedBreasts == true
+	;is there something to do?
+	if DTConfig.modSlif == false
+		return
+	endif
+
+	;ok...
+	bool breastNodesAreShowed = false
+	if DTConfig.patchDDDeviousBra == true && npcs_ref[Slot].WornHasKeyword(libs.libs.zad_DeviousBra)==true
+		SLIF_Main.hideNode(npcs_ref[Slot], "DTT", "NPC L Breast", 0.1, "DTT")	;0.1 - almost flat breasts
+		SLIF_Main.hideNode(npcs_ref[Slot], "DTT", "NPC R Breast", 0.1, "DTT")	;0.1 - almost flat breasts
+		breastNodesAreShowed = false
+		return	;no more to do
+	else
+		;we can show it always - becouse next block need it (take a look at breastNodesAreShowed bool)
+		SLIF_Main.showNode(npcs_ref[Slot], "Devious Training Mayhem", "NPC L Breast")
+		SLIF_Main.showNode(npcs_ref[Slot], "Devious Training Mayhem", "NPC R Breast")
+		breastNodesAreShowed = true
+	endif
+
+	if DTConfig.compressedBreasts == true
 
 		if LevelChastityBra >= 1 && DTConfig.chastityBraScaleBreasts < 1
 
-			;grab all keys
-
-			SLIF_Main.showNode(npcs_ref[Slot], "Devious Training Mayhem", "NPC L Breast")
-			SLIF_Main.showNode(npcs_ref[Slot], "Devious Training Mayhem", "NPC R Breast")
+			if breastNodesAreShowed == false
+				SLIF_Main.showNode(npcs_ref[Slot], "Devious Training Mayhem", "NPC L Breast")
+				SLIF_Main.showNode(npcs_ref[Slot], "Devious Training Mayhem", "NPC R Breast")
+			endif
 			
 			float breastSizeL = SLIF_Main.getValue(npcs_ref[Slot],"All Mods","NPC L Breast")
 			float breastSizeR = SLIF_Main.getValue(npcs_ref[Slot],"All Mods","NPC R Breast")

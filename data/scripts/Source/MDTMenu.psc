@@ -103,9 +103,13 @@ Event OnPageReset(string page)
 		
 		AddEmptyOption()   
 		
-		AddHeaderOption("Breasts ")
-		compressedBreasts  = AddToggleOption("Enable breasts compression",DTConfig.compressedBreasts)
-		chastityBraScaleBreasts = AddSliderOption("Chastity Bra compression",DTConfig.chastityBraScaleBreasts,"{1}")
+		;breast support is only for SLIF users
+		if DTConfig.modSlif == true
+			AddHeaderOption("Breasts ")
+			compressedBreasts  = AddToggleOption("Enable breasts compression",DTConfig.compressedBreasts)
+			chastityBraScaleBreasts = AddSliderOption("Chastity Bra compression",DTConfig.chastityBraScaleBreasts,"{1}")
+			AddEmptyOption()   
+		endif
 		
 		SetCursorPosition(1)	
 		
@@ -118,7 +122,16 @@ Event OnPageReset(string page)
 		AddEmptyOption()   
 		AddHeaderOption("Plugs ")
 		analPlugEffect = AddToggleOption("Ruined anus",DTConfig.analPlugEffect)		
-		vaginalPlugEffect = AddToggleOption("Ruined vagina",DTConfig.vaginalPlugEffect)		
+		vaginalPlugEffect = AddToggleOption("Ruined vagina",DTConfig.vaginalPlugEffect)
+		
+		;DD patch support is only for SLIF users
+		if DTConfig.modSlif == true
+			AddHeaderOption("DD Nodes patches")
+			patchDDDeviousBra = AddToggleOption("Hide breasts with bra",DTConfig.patchDDDeviousBra)
+			patchDDDeviousCorset = AddToggleOption("Hide belly with corset",DTConfig.patchDDDeviousCorset)
+		endif
+		
+		
 	endif
 	
 	if (page == "Activity effects")
@@ -187,6 +200,25 @@ Event OnOptionSelect(Int Menu)
 			DTConfig.compressedBreasts = true							
 		endIf
 		SetToggleOptionValue(Menu,  DTConfig.compressedBreasts)		
+		return
+	endIf		
+	
+	if Menu == patchDDDeviousBra
+		if  DTConfig.patchDDDeviousBra == true
+			DTConfig.patchDDDeviousBra = false
+		else			
+			DTConfig.patchDDDeviousBra = true							
+		endIf
+		SetToggleOptionValue(Menu,  DTConfig.patchDDDeviousBra)		
+		return
+	endIf		
+	if Menu == patchDDDeviousCorset
+		if  DTConfig.patchDDDeviousCorset == true
+			DTConfig.patchDDDeviousCorset = false
+		else			
+			DTConfig.patchDDDeviousCorset = true							
+		endIf
+		SetToggleOptionValue(Menu,  DTConfig.patchDDDeviousCorset)		
 		return
 	endIf	
 	
@@ -304,6 +336,8 @@ int enableBodyWeight
 int bodyScaleFatThigh
 int enableWhipsMarks
 int compressedBreasts
+int patchDDDeviousCorset
+int patchDDDeviousBra
 
 int vaginalPlugEffect
 int analPlugEffect

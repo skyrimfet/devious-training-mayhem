@@ -60,14 +60,14 @@ Event OnObjectUnEquipped(Form akBaseObject, ObjectReference akReference)
 	;DTActor.processActor(Slot,"collar", DTActor.npcs_ref[Slot].GetFactionRank(DTConfig.DT_Collar))
 	;DTActor.processActor(Slot,"corset",DTActor.npcs_ref[Slot].GetFactionRank(DTConfig.DT_Corset))
 	
-	if (akBaseObject.HasKeyword(libs.zad_DeviousCollar) || akBaseObject.HasKeyword(libs.zad_DeviousCorset) || akBaseObject.HasKeyword(libs.zad_DeviousBelt) || akBaseObject.HasKeyword(libs.zad_DeviousHarness))
+	if (akBaseObject.HasKeyword(libs.zad_DeviousBra) || akBaseObject.HasKeyword(libs.zad_DeviousCollar) || akBaseObject.HasKeyword(libs.zad_DeviousCorset) || akBaseObject.HasKeyword(libs.zad_DeviousBelt) || akBaseObject.HasKeyword(libs.zad_DeviousHarness))
 		inventoryEventPost()
 	endif
 EndEvent
 
 Event OnObjectEquipped(Form akBaseObject, ObjectReference akReference)
 	
-	if (akBaseObject.HasKeyword(libs.zad_DeviousCollar) || akBaseObject.HasKeyword(libs.zad_DeviousCorset) || akBaseObject.HasKeyword(libs.zad_DeviousBelt) || akBaseObject.HasKeyword(libs.zad_DeviousHarness))
+	if (akBaseObject.HasKeyword(libs.zad_DeviousBra) || akBaseObject.HasKeyword(libs.zad_DeviousCollar) || akBaseObject.HasKeyword(libs.zad_DeviousCorset) || akBaseObject.HasKeyword(libs.zad_DeviousBelt) || akBaseObject.HasKeyword(libs.zad_DeviousHarness))
 		inventoryEventPost()
 	endif
 	
@@ -78,10 +78,12 @@ function inventoryEventPost()
 	if waitForProcess == true
 		return
 	endif
+	;some items need time (becouse scripts) - is better run all with small delay!
 	utility.wait(2.0)
 	waitForProcess = true
 	DTActor.processActor(Slot,"collar",DTActor.npcs_ref[Slot].GetFactionRank(DTConfig.DT_Collar))
 	DTActor.processActor(Slot,"corset",DTActor.npcs_ref[Slot].GetFactionRank(DTConfig.DT_Corset))
+	DTActor.processActor(Slot,"chastitybra",DTActor.npcs_ref[Slot].GetFactionRank(DTConfig.DT_Chastitybra))
 	waitForProcess = false
 endFunction
 
