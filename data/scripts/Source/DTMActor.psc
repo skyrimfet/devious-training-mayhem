@@ -188,8 +188,9 @@ function addItemOverlays(int slot)
 	else
 		binnaryMark = binnaryMark+"0"
 	endif
-	
-	ActorOverlayAdd(npcs_ref[Slot], "body", "itemsoverlays" , "group"+binnaryMark,true)
+	if binnaryMark!= "1_0000"
+		ActorOverlayAdd(npcs_ref[Slot], "body", "itemsoverlays" , "group"+binnaryMark,true)
+	endif
 	
 endFunction
 
