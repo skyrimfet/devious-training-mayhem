@@ -485,9 +485,14 @@ function updateCollar(int Slot, int Level = 0)
 	
 	float neckFactor = DTConfig.collarScaleNeck as float
 	
+	;level 0 = (100/6) * 0 = 16.6 * 0 = 0
+	;level 6 = (100/6) * 6 = 16.6 * 6 = 99.6
+	
 	float value = ( 100 / 6 ) * Level
 		
+	;max 1 100/100
 	float reduction = value / 100
+	
 	
 	reduction = reduction * (neckFactor as float/ 100) as float  ;max 0.5
 	
@@ -495,9 +500,12 @@ function updateCollar(int Slot, int Level = 0)
 		reduction = reduction * 0.6
 	endif
 	
-			
-	float neck = 1 + (reduction * 1.5)
-	float head = 1 - reduction
+	;old calc		
+	;float neck = 1 + (reduction * 1.5)
+	;float head = 1 - reduction
+	
+	float neck = 1 + reduction
+	float head = 1 / neck
 	
 	
 	if DTConfig.modSlif == false
@@ -573,9 +581,10 @@ function updateWaist(int Slot, int LevelCorset = 0, int LevelHarness,  int Level
 	reduction = reduction * (waistFactor as float/ 100) as float  ;max 0.5
 	
 		
+	;float sp1 = 1 - reduction
+	;float sp2 = 1 + (reduction * (1+ (waistFactor as float/ 100) ) * 1.4 )
 	float sp1 = 1 - reduction
-	float sp2 = 1 + (reduction * (1+ (waistFactor as float/ 100) ) * 1.4 )
-
+	float sp2 = 1/sp1
 	
 	
 
