@@ -273,10 +273,12 @@ function processTatDaysTats(int Slot, int days)
 	if (days == 0)
 		return
 	endif
-	if npcs_daysInBondage[Slot]>63			
-		npcs_daysInBondage[Slot] = 63
+	if npcs_daysInBondage[Slot]>69			
+		npcs_daysInBondage[Slot] = 69
 	endif
-	
+	if days>69
+		days = 69
+	endif
 	if npcs_daysInBondageLastKnow[Slot] != days
 		ActorOverlayAdd(npcs_ref[Slot], "body", "day" , "day"+days,true)
 	endif
