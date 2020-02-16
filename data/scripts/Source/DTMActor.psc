@@ -662,6 +662,10 @@ endFunction
 String Function ActorOverlayGetSlot(Actor akActor, String bodyPart,String kind )
 {find the next available overlay slot, or the slot we were already using.}
 
+
+	if akActor==None
+		return ""
+	endif
 	String NodeName
 
 	;; prefix the overlay name.
@@ -705,6 +709,7 @@ String Function ActorOverlayGetSlot(Actor akActor, String bodyPart,String kind )
 		PartName = "Face"
 	endif
 	
+
 	
 	Int NodeIter = 0
 	Bool NodeSex = (akActor.GetLeveledActorBase().GetSex() == 1)
